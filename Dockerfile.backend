@@ -1,0 +1,21 @@
+# Backend Dockerfile
+FROM node:18-alpine AS backend
+
+WORKDIR /app/backend
+
+# Copy package files
+COPY backend/package*.json ./
+RUN npm install
+
+# Copy source code
+COPY backend/src ./src
+COPY backend/tsconfig.json ./
+
+# Build the application
+RUN npm run build
+
+# Expose port
+EXPOSE 5000
+
+# Start the application
+CMD ["npm", "start"]
